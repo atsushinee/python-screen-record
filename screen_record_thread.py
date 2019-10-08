@@ -9,7 +9,6 @@ import win32gui
 from PIL import ImageGrab, Image
 from PyQt5.QtCore import QThread, pyqtSignal
 from moviepy.video.io.ImageSequenceClip import ImageSequenceClip
-import imageio
 
 
 class ScreenRecordThread(QThread):
@@ -65,14 +64,14 @@ class SaveMp4Thread(QThread):
         self.fps = fps
         self.path = path
         self.list = list
-        self.gif_list = gif_list[:-50]
+        self.gif_list = gif_list
         # self.gif_list = gif_list[::n] # gif n倍速
         # self.gif_list = gif_list[::-1] # gif n倍速倒放
 
     def run(self):
         clip = ImageSequenceClip(self.list, fps=self.fps)
-        clip.write_videofile(self.path) # to video
-        # clip.write_gif(self.path) # to gif
+        clip.write_videofile(self.path)  # to video
+        # clip.write_gif(self.path.replace("mp4", "gif"))  # to gif
 
         # """生成gif"""
         # imageio.mimsave('what.gif',self.gif_list)

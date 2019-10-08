@@ -1,6 +1,5 @@
 # _*_ coding:utf-8 _*_
 import shutil
-
 from PIL import ImageGrab
 from PyQt5.QtCore import QCoreApplication, Qt, qAbs, QRect, QPoint
 from PyQt5.QtGui import QPen, QPainter, QIcon, QFont
@@ -17,7 +16,7 @@ class ScreenBar(Base):
         super(ScreenBar, self).__init__()
         self.box = QVBoxLayout()
         self.btn_box = QHBoxLayout()
-        self.tip_label = QLabel(' 屏幕录制 - by lichun ')
+        self.tip_label = QLabel(' 屏幕录制/atsushinee@outlook.com ')
         self.is_record_full = QCheckBox()
         self.open_btn = QPushButton()
         self.start_btn = QPushButton()
@@ -30,7 +29,6 @@ class ScreenBar(Base):
     def set_style(self):
         self.start_btn.setEnabled(False)
         self.end_btn.setEnabled(False)
-        self.tip_label.setFont(QFont('Arial', 10))
         self.start_btn.setIcon(QIcon('res/start.png'))
         self.end_btn.setIcon(QIcon('res/stop.png'))
         self.close_btn.setIcon(QIcon('res/close.png'))
@@ -59,9 +57,11 @@ class ScreenBar(Base):
 
         path, tmp = QFileDialog.getSaveFileName(self,
                                                 "文件保存",
-                                                '%s/video.mp4' % ABSOLUTE_PATH,
+                                                '%s/*.mp4' % ABSOLUTE_PATH,
                                                 "All Files (*);")
         if not '' == path:
+            if not path.endswith(".mp4"):
+                path = path + ".mp4"
             self.save_mp4_thread = SaveMp4Thread(list, fps, path, gif_list)
             self.save_mp4_thread.trigger.connect(lambda: show_success_message("保存成功"))
             self.save_mp4_thread.start()
