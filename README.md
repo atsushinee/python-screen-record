@@ -9,3 +9,13 @@
 ![操作](1.gif)
 
 日常屏幕录制分享推荐使用 [ScreenToGif](https://github.com/NickeManarin/ScreenToGif)
+
+
+安装
+``` python
+pip install moviepy
+pip install pypiwin32
+pip install pillow
+pip install PyQT5
+```
+
